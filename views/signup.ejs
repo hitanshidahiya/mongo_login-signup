@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="cssfiles/Signup.css">
+</head>
+<body>
+    <h3>Signup:</h3>
+    <div class="form">
+        <form action="/signup" method="post">
+            <label>First Name:</label> <br>
+            <input type="text" name="fn"> <br> <br>
+            
+            <label>Last Name:</label> <br>
+            <input type="text" name="ln"> <br> <br>
+            
+            <label>Age:</label> <br>
+            <input type="text" name="age"> <br> <br>
+            
+            <label>Contact No.:</label> <br>
+            <input type="tel" name="num"> <br> <br>
+            
+            <label>Email:</label> <br>
+            <input type="email" name="email"> <br> <br>
+
+            <label>Password:</label> <br>
+            <input type="password" name="password"> <br><br>
+
+            <div class="but">
+                <button class="buton" type="submit" name="butt" value="home">Home</button>
+                <button class="buton" type="submit" name="butt" value="login">Login</button>
+                <button class="buton" type="submit" name="butt" value="signup">Signup</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
