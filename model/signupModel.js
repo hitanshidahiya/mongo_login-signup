@@ -11,44 +11,40 @@ module.exports = class Signup {
     async save() {
         await insertFun(this.fn, this.ln, this.age, this.no, this.em, this.ps)
     }
-
-    display() {
-        return data
-    }
 }
 
 const { MongoClient } = require("mongodb")
 
-const url = "mongodb://localhost:27017"
+const url = process.env.MONGO_URL  // ✅ Recommended to use Atlas now
+const client = new MongoClient(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
 
-const client = new MongoClient(url)
+let dbInstance = null // 🔐 Global DB object for reuse
 
 async function insertFun(fn, ln, age, no, em, ps) {
     try {
-        await client.connect()
-        const db = client.db("login")
-        console.log("Database created!(signup)")
+        if (!dbInstance) {
+            await client.connect()
+            dbInstance = client.db("login")
+            console.log("Database connected (signup)")
+        }
 
-        const collection = db.collection("Information")
-        console.log("Collection created!(signup)")
+        const collection = dbInstance.collection("Information")
+        console.log("Collection connected (signup)")
 
         let arr = { fn: fn, ln: ln, age: age, no: no, em: em, ps: ps }
 
         let res = await collection.insertOne(arr)
         if (res) {
-            return res
             console.log(res)
-        }
-        else {
+            return res
+        } else {
             return 'Nothing Inserted'
         }
 
-
-
     } catch (err) {
-        console.log("Error:" + err)
+        console.log("Error: " + err)
     }
-
 }
-
-
